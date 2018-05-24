@@ -10,6 +10,7 @@ using StatlerWaldorfCorp.TeamService.Persistence;
 
 namespace StatlerWaldorfCorp.TeamService
 {
+	[Route("/teams/{teamId}/[controller]")]
 	public class MembersController : Controller
 	{
 		ITeamRepository repository;
@@ -33,6 +34,7 @@ namespace StatlerWaldorfCorp.TeamService
 		
 
 		[HttpGet]
+		[Route("/teams/{teamId}/[controller]/{memberId}")]
 		public virtual IActionResult GetMember(Guid teamID, Guid memberId) 
 		{
 			Team team = repository.Get(teamID);
@@ -51,7 +53,8 @@ namespace StatlerWaldorfCorp.TeamService
 		}
 
 		[HttpPut]
-		public virtual IActionResult UpdateMember(Member updatedMember, Guid teamID, Guid memberId) 
+		[Route("/teams/{teamId}/[controller]/{memberId}")]
+		public virtual IActionResult UpdateMember([FromBody]Member updatedMember, Guid teamID, Guid memberId) 
 		{
 			Team team = repository.Get(teamID);
 			
@@ -71,7 +74,7 @@ namespace StatlerWaldorfCorp.TeamService
 		}
 
 		[HttpPost]
-		public virtual IActionResult CreateMember(Member newMember, Guid teamID) 
+		public virtual IActionResult CreateMember([FromBody]Member newMember, Guid teamID) 
 		{
 			Team team = repository.Get(teamID);
 			
@@ -85,6 +88,7 @@ namespace StatlerWaldorfCorp.TeamService
 		}
 
 		[HttpGet]
+		[Route("/members/{memberId}/team")]
 		public IActionResult GetTeamForMember(Guid memberId)
 		{
 			var teamId = GetTeamIdForMember(memberId);

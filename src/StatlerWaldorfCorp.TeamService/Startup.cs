@@ -9,15 +9,15 @@ using StatlerWaldorfCorp.TeamService.Persistence;
 
 namespace StatlerWaldorfCorp.TeamService
 {
-    class Startup
+    public class Startup
     {
 	public Startup(IHostingEnvironment env)
         {
-	   	
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory logerFactory)
         {
+	   app.UseMvc();
 	   app.Run(async (context) =>
            {
 	      await context.Response.WriteAsync("Kuckuck!");
@@ -29,5 +29,6 @@ namespace StatlerWaldorfCorp.TeamService
 	   services.AddMvc();
 	   services.AddScoped<ITeamRepository, MemoryTeamRepository>();
 	}
+
     }
 }
